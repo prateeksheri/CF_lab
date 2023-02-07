@@ -1,0 +1,70 @@
+DISC IMAGING THROUGH COMMAND LINE IN KALI LINUX
+
+COMMANDS: 
+
+DD     copying bit by bit imaging
+DC3DD  patch over DD(shows progress)
+DCFLDD ""
+
+
+sudo fdisk -l (gives disk info)
+sudo apt-get install dc3dd
+sudo md5sum devicename(compute md5 hash)
+sudo dc3dd if='device name' (i/p file) of='name ex. img1.dd' (o/p file) log=summary.txt ofsz=5M ofs=split.dd.000 hash=md5 hlog=hashbackup.txt
+cat split.dd.0* | dc3dd of=merged.dd
+sudo dc3dd if= hof=img,dd log= ofsz hofs hash= hlog backuphash.txt (for hashing split files as well)
+
+sudo dd if=devicename of=mbr1.dd bs=512 count=1 conv=noerror,sync
+sudo dd if=mbr1 count=64 skip 6
+
+
+sudo apt-get install gddrescue //for disc making noises or faulty drives(can't conect to host)
+dmesg | tail //gives log info 
+sudo ddrescue -d -r3 /dev/sdb(file name) mydrive3.raw mydrive3.log
+
+
+testdisk(linux)/photorec(windows)
+sudo apt-get install testdisk
+
+winhex
+
+Carving tools
+FOREMOST
+sudo apt-get install foremost
+mkdir foremost1 //empty directory
+sudo foremost -t file_formatc-i pd_img.dd -o empty_directory_name
+
+SCALPEL
+cd /etc 
+ls
+sudo nano scalpel.conf		//foremost : max 4gb            scalpel : max 16gb
+sudo scalpel -c scalpel.conf -o out1(empty folder) pd_img.dd
+
+RECOVER JPEG
+sudo apt-get install recoverjpeg
+sudo recoverjpeg pd_image2.dd -o foldername
+(will show # of recovered pictures)
+sudo recoverjpeg -m 150000000000(size) pd_image2.dd -o foldername
+
+BULKEXTRACTOR
+sudo apt-get bulk-extractor
+sudo bulk_extractor -i pd_img2.dd -o out1(empty folder name)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
